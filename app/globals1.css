@@ -68,19 +68,18 @@ body {
 
 .link-muted { color: var(--color-muted); }
 
-/* ===== HERO visuals (blobs + glow) ===== */
-.blur-blob { position:absolute; border-radius:9999px; filter: blur(52px); opacity:.45; z-index:0; }
-.blob-a { width:460px; height:460px; left:-60px; top:-40px;
+/* ===== HERO visuals (static blobs + glow) ===== */
+.blur-blob { position:absolute; border-radius:9999px; filter: blur(46px); opacity:.30; }
+.blob-a { width:380px; height:380px; left:-60px; top:-40px;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--color-primary) 90%, transparent), transparent 70%);
 }
-.blob-b { width:520px; height:520px; right:-80px; top:-20px;
+.blob-b { width:420px; height:420px; right:-80px; top:-20px;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 85%, transparent), transparent 70%);
 }
-.blob-c { width:600px; height:600px; left:35%; bottom:-180px;
+.blob-c { width:500px; height:500px; left:35%; bottom:-180px;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--color-primary) 80%, transparent), transparent 70%);
 }
 
-/* Soft glow around a hero “card” */
 .glow-border { position: relative; border-radius: var(--radius-xl); }
 .glow-border::before {
   content:"";
@@ -96,9 +95,6 @@ body {
   opacity:.45;
   z-index:-1;
 }
-
-/* Layer hero content above blobs */
-.hero-content { position: relative; z-index: 10; }
 
 /* Kill switch for a flat hero */
 .hero--static .blur-blob,

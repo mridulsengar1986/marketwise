@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* ===== Theme tokens (Tailwind v4) ===== */
+@theme {
+  --font-sans: ui-sans-serif, Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+
+  /* Brand palette */
+  --color-bg1: #0a0b12;
+  --color-bg2: #101225;
+  --color-primary: hsl(253 88% 66%);   /* purple */
+  --color-accent: hsl(48 100% 58%);    /* yellow */
+  --color-muted: hsl(230 12% 74%);
+
+  --radius-xl: 1.25rem;
+}
+
+/* App background: deep purple wash with a faint grid */
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: white;
+  background:
+    radial-gradient(1400px 700px at 20% -10%, hsl(253 70% 18% / .55), transparent 60%),
+    radial-gradient(900px 600px at 85% 120%, hsl(253 60% 26% / .45), transparent 65%),
+    linear-gradient(180deg, var(--color-bg1), var(--color-bg2));
+}
+
+/* subtle grid overlay */
+.bg-grid {
+  position: relative;
+  isolation: isolate;
+}
+.bg-grid::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(60% 60% at 50% 40%, black, transparent 70%);
+  opacity: .25;
+  z-index: -1;
+}
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .75rem 1.1rem; border-radius: 9999px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .15s ease, opacity .15s ease, background-color .15s ease;
+}
+.btn-primary { background: var(--color-accent); color: #1a1a1a; }
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-ghost   { background: transparent; color: white; }
+.btn-ghost:hover { background: rgba(255,255,255,.06); }
+
+.link-muted { color: var(--color-muted); }
+/* ===== Playful-but-pro CSS add-ons ===== */
+
+/* Color blobs that float slowly */
+.blur-blob { position:absolute; border-radius:9999px; filter: blur(40px); opacity:.45; }
+.blob-a { width:380px; height:380px; left:-60px; top:-40px; background: radial-gradient(closest-side, hsl(296 80% 64%), transparent 70%); animation: floaty 18s ease-in-out infinite; }
+.blob-b { width:420px; height:420px; right:-80px; top:-20px; background: radial-gradient(closest-side, hsl(170 72% 52%), transparent 70%); animation: floaty 22s ease-in-out -6s infinite; }
+.blob-c { width:500px; height:500px; left:35%; bottom:-180px; background: radial-gradient(closest-side, hsl(253 88% 66%), transparent 70%); animation: floaty 26s ease-in-out -3s infinite; }
+
+/* Soft animated gradient ring around hero “card” */
+.glow-border {
+  position: relative;
+  border-radius: var(--radius-xl);
+}
+.glow-border::before {
+  content:"";
+  position:absolute; inset:-1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    hsla(253, 21%, 84%, 0.45),
+    hsla(296, 20%, 54%, 0.35),
+    hsla(170, 53%, 63%, 0.35),
+    hsla(48, 79%, 59%, 0.35),
+    hsl(253 88% 66% / .45)
+  );
+  filter: blur(8px);
+  opacity:.6;
+  z-index:-1;
+  animation: spin 16s linear infinite;
+}
+
+/* Gradient headline text */
+.gradient-title {
+  background: linear-gradient(90deg,
+    hsl(256 92% 82%),
+    hsl(296 80% 75%),
+    hsl(170 72% 70%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Logo marquee */
+.marquee { overflow:hidden; position:relative; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+.marquee-track { display:flex; gap:40px; width:max-content; animation: marquee 18s linear infinite; opacity:.85; }
+
+/* Micro helper */
+.badge {
+  display:inline-block; padding:.35rem .6rem; border-radius:9999px;
+  background: color-mix(in srgb, white 8%, transparent);
+  border: 1px solid rgba(255,255,255,.14);
+  font-size:.75rem; letter-spacing:.02em;
+}
+
+/* Animations */
+@keyframes floaty {
+  0%,100% { transform: translateY(0) translateX(0) scale(1); }
+  50%     { transform: translateY(-18px) translateX(8px) scale(1.03); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
