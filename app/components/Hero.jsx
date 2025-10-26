@@ -1,124 +1,135 @@
 // app/components/Hero.jsx
-export default function Hero() {
-  const logos = [
-    "Glossier",
-    "Outras",
-    "Frame.io",
-    "Outbrain",
-    "Chief",
-    "Artifact",
-    "Ledger",
-    "Hush",
-    "Segment",
-    "Barebones",
-    "Swell",
-    "Linear",
-  ];
+"use client";
+
+import Image from "next/image";
+import { useCallback } from "react";
+
+function InteractiveTilt({ className = "", children }) {
+  // useCallback so React doesn't recreate the function every render
+  const handleMove = useCallback((e) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+
+    const rx = (0.5 - y) * 6; // tilt up/down
+    const ry = (x - 0.5) * 6; // tilt left/right
+
+    el.style.transform = `
+      perspective(1000px)
+      rotateX(${rx}deg)
+      rotateY(${ry}deg)
+      translateY(-2px)
+    `;
+  }, []);
+
+  const handleLeave = useCallback((e) => {
+    e.currentTarget.style.transform =
+      "perspective(1000px) rotateX(0) rotateY(0) translateY(0)";
+  }, []);
 
   return (
-    <section className="relative bg-grid">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* LEFT — copy + CTAs */}
-          <div>
-            <h1 className="mt-4 text-4xl sm:text-6xl/tight font-extrabold gradient-title">
-              Marketwise
+    <div
+      className={
+        className + " transition-transform duration-300 will-change-transform"
+      }
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
+      {children}
+    </div>
+  );
+}
+
+export default function Hero() {
+  return (
+    <section
+      className="relative overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(1000px 500px at 10% -10%, hsla(275,95%,92%,.9), transparent 60%), radial-gradient(800px 500px at 120% 120%, hsla(170,90%,88%,.9), transparent 60%), #fff",
+      }}
+    >
+      {/* dotted grid overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "radial-gradient(hsla(235,20%,70%,.35) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
+          maskImage:
+            "radial-gradient(900px 600px at 50% 50%, #000 60%, transparent 100%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        {/* GRID: LEFT TEXT / RIGHT IMAGE */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* LEFT SIDE */}
+          <div className="lg:col-span-6 max-w-3xl">
+            <h1 className="mt-4 text-4xl sm:text-6xl/tight font-extrabold text-[#1c1c28]">
+              <span className="block text-transparent bg-clip-text bg-[linear-gradient(90deg,#7c4dff,#00d0b6,#ffd257)]">
+                Smarter B2B Discounts
+              </span>
             </h1>
 
-            <p className="mt-4 text-lg text-white/85 max-w-2xl">
-              Create <strong>market-specific</strong> discounts with smart
-              rules, automatic targeting, and zero maintenance—built for Shopify
-              Markets and international merchants.
+            <p className="mt-4 text-lg text-neutral-700">
+              Launch <strong>market-specific</strong> promos with rules,
+              targeting, and auto-apply logic — built for{" "}
+              <strong>Shopify Markets</strong>.
             </p>
 
-            {/* value bullets */}
-            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 text-white/90">
-              <li>✅ Deep discount types & bundles</li>
-              <li>✅ Smart scheduling & countdowns</li>
-              <li>✅ Customer & country targeting</li>
-              <li>✅ Cart rules & A/B friendly</li>
-            </ul>
-
-            {/* CTAs + social proof */}
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
-              <a href="#get-started" className="btn btn-primary">
+              {/* Main CTA */}
+              <a
+                href="https://apps.shopify.com/beacon-smart-market-discount"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-lg transition-transform active:scale-95"
+                style={{
+                  background: "linear-gradient(90deg,#7c4dff,#00d0b6,#ffd257)",
+                }}
+              >
                 Get Started
               </a>
 
-              <span className="sm:ml-4 text-sm text-white/70 self-center">
-                ⭐⭐⭐⭐⭐ Trusted by <strong>1,200+</strong> stores
-              </span>
+              {/* Secondary CTA */}
+              <a
+                href="#learn-more"
+                className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-[#1c1c28] bg-white border border-black/10 shadow-sm"
+              >
+                See it in Action
+              </a>
             </div>
 
-            {/* marquee */}
-            <div className="mt-10 rounded-2xl bg-black/25 px-2 py-3 border border-white/10 marquee">
-              <div className="marquee-track">
-                {logos.concat(logos).map((name, i) => (
-                  <span key={i} className="px-4 text-white/70">
-                    {name}
-                  </span>
-                ))}
-              </div>
+            {/* Social proof */}
+            <div className="mt-5 text-sm text-neutral-600">
+              ⭐⭐⭐⭐⭐ Trusted by <strong>1,200+</strong> stores
             </div>
           </div>
 
-          {/* RIGHT — animated explainer */}
-          <div className="relative">
-            {/* Decorative static blobs for depth (very subtle) */}
-            <div aria-hidden className="pointer-events-none">
-              <div
-                className="absolute -left-8 -top-8 size-52 rounded-full opacity-25 blur-3xl"
-                style={{
-                  background:
-                    "radial-gradient(circle, hsl(296 80% 64%/.8), transparent 70%)",
-                }}
-              />
-              <div
-                className="absolute -right-6 top-12 size-64 rounded-full opacity-25 blur-3xl"
-                style={{
-                  background:
-                    "radial-gradient(circle, hsl(170 72% 52%/.8), transparent 70%)",
-                }}
-              />
-            </div>
+          {/* RIGHT SIDE - floating art, no rounded card */}
+          <div className="lg:col-span-6 relative">
+            <div className="relative mx-auto lg:mx-0 w-full max-w-[560px]">
+              {/* soft brand glow behind the art */}
+              <div className="absolute -inset-10 rounded-[40px] bg-[conic-gradient(from_180deg_at_50%_50%,#7c4dff22,transparent_35%,#00d0b622,transparent_70%,#ffd25722)] blur-3xl" />
 
-            {/* Orbit rig */}
-            <div className="relative mx-auto size-[380px] sm:size-[440px]">
-              {/* central engine */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="engine-card">
-                  <div className="engine-dot" />
-                  <h3 className="text-xl font-bold">Discount Engine</h3>
-                  <p className="text-sm text-white/75">
-                    Combines rules → targets → pricing
-                  </p>
-                </div>
-              </div>
-
-              {/* orbit path */}
-              <div className="absolute inset-0 rounded-full border border-white/10" />
-
-              {/* orbiting chips (animated by rotating parent) */}
-              <div className="orbit">
-                <HeroChip label="Rules Builder" k="R" />
-                <HeroChip label="Market Targeting" k="T" />
-                <HeroChip label="Scheduling" k="S" />
-                <HeroChip label="A/B & Cart Logic" k="A" />
-              </div>
+              <InteractiveTilt className="relative">
+                <Image
+                  src="/mrk1.png"
+                  alt="Discount ninja illustration with cart and coins"
+                  width={1120}
+                  height={840}
+                  priority
+                  className="block w-full h-auto select-none"
+                />
+              </InteractiveTilt>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-/** Small presentational chip */
-function HeroChip({ label, k }) {
-  return (
-    <div className="chip">
-      <span className="chip-icon">{k}</span>
-      <span className="chip-label">{label}</span>
-    </div>
   );
 }

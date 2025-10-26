@@ -1,19 +1,18 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import WhyUs from "./components/WhyUs";
-import HowItWorks from "./components/HowItWorks";
-import Footer from "./components/Footer";
+import FooterCTA from "./components/FooterCTA";
+import Features from "./components/Features";
+import Pricing from "./components/Pricing";
 
 export default function Page() {
   return (
     <>
-      <Navbar />
       <main>
         <Hero />
+        <Features />
+        <Pricing />
       </main>
-      <WhyUs />
-      <HowItWorks />
-      <Footer />
+      <FooterCTA />
     </>
   );
 }

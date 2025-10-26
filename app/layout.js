@@ -1,12 +1,18 @@
+import "./globals.css";
+import Navbar from "./components/Navbar";
+import FooterCTA from "./components/FooterCTA";
 export const metadata = {
   title: "Marketwise",
   description: "Discounts that adapt to every market",
 };
-import "./globals.css";
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="antialiased">
-      <body className="min-h-screen">{children}</body>
+    <html lang="en">
+      <body>
+        <Navbar />
+        <main>{children}</main>
+        <FooterCTA />
+      </body>
     </html>
   );
 }
