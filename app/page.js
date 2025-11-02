@@ -12,7 +12,6 @@ export default function Page() {
         <Features />
         <Pricing />
       </main>
-      <FooterCTA />
     </>
   );
 }

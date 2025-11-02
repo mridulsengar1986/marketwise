@@ -128,7 +128,7 @@ export default function Hero() {
                   className="shine-pointer absolute inset-0 pointer-events-none"
                 />
                 <Image
-                  src="/mrk1.png" // ensure this file exists in /public
+                  src="/mrk1.png" 
                   alt="People collaborating with charts and gears"
                   width={1120}
                   height={840}

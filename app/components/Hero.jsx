@@ -130,6 +130,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      <div className="h-24 md:h-32" />
     </section>
   );
 }
