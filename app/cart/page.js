@@ -139,28 +139,28 @@ function HeaderBar({ market, marketLabels, setMarket }) {
             code="US"
             active={market === "US"}
             setMarket={setMarket}
-            src="/flags/us.png"
+            src="/flags/US.png"
             label="US"
           />
           <FlagButton
             code="UK"
             active={market === "UK"}
             setMarket={setMarket}
-            src="/flags/uk.png"
+            src="/flags/UK.png"
             label="UK"
           />
           <FlagButton
             code="IN"
             active={market === "IN"}
             setMarket={setMarket}
-            src="/flags/in.png"
+            src="/flags/In.png"
             label="IN"
           />
           <FlagButton
             code="JP"
             active={market === "JP"}
             setMarket={setMarket}
-            src="/flags/JAPAN.png"
+            src="/flags/Japan.png"
             label="JAPAN"
           />
 
